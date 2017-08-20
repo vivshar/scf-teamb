@@ -30,9 +30,9 @@ public class MyResource {
     }
     @POST
 	@Path("/proposal")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String createProposalClass(Proposal p) {
+	public Proposal createProposalClass(Proposal p) {
 		String s=new String();
 		for(Product prod : p.getProducts()) {
 			System.out.println(prod.getId());
@@ -54,6 +54,6 @@ public class MyResource {
 		s.concat(""+p.getDeliveryTermsId());
 		System.out.println(p.getPaymentTermsId());
 		s.concat(""+p.getPaymentTermsId());
-		return "<h1>"+p.getDescription()+"</h1>";
+		return p;
 	}
 }
