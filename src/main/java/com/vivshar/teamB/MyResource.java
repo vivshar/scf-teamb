@@ -7,14 +7,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.vivshar.POJO.Feature;
-import com.vivshar.POJO.Product;
-import com.vivshar.POJO.Proposal;
+import com.vivshar.JsonParsePOJO.Feature;
+import com.vivshar.JsonParsePOJO.Product;
+import com.vivshar.JsonParsePOJO.Proposal;
 
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("myresource")
+@Path("create")
 public class MyResource {
 
     /**
@@ -33,27 +33,7 @@ public class MyResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Proposal createProposalClass(Proposal p) {
-		String s=new String();
-		for(Product prod : p.getProducts()) {
-			System.out.println(prod.getId());
-			s.concat(""+prod.getId());
-			System.out.println(prod.getQuantity());
-			s.concat(""+prod.getQuantity());
-			System.out.println("Features:");
-			s.concat("Features:");
-			for(Feature f : prod.getFeatures()) {
-				System.out.println(f.getSpecification());
-				s.concat(f.getSpecification());
-				System.out.println(f.getPriorityOrder());
-				s.concat(f.getPriorityOrder());
-			}
-		}
-		System.out.println(p.getDescription());
-		s.concat(p.getDescription());
-		System.out.println(p.getDeliveryTermsId());
-		s.concat(""+p.getDeliveryTermsId());
-		System.out.println(p.getPaymentTermsId());
-		s.concat(""+p.getPaymentTermsId());
+		
 		return p;
 	}
 }
