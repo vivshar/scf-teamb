@@ -30,7 +30,7 @@ public class MyResource {
     }
     @POST
 	@Path("/proposal")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_ATOM_XML})
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Proposal createProposalClass(Proposal p) {
 		
