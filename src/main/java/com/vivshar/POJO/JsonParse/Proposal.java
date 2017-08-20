@@ -1,5 +1,5 @@
 
-package com.vivshar.JsonParsePOJO;
+package com.vivshar.POJO.JsonParse;
 
 import java.util.List;
 

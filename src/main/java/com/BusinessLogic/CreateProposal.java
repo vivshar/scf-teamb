@@ -1,12 +1,12 @@
 package com.BusinessLogic;
 
 import com.vivshar.DAO.DAOImpl;
-import com.vivshar.JsonParsePOJO.Feature;
-import com.vivshar.JsonParsePOJO.Product;
-import com.vivshar.JsonParsePOJO.Proposal;
-import com.vivshar.TablePOJO.FeaturesTable;
-import com.vivshar.TablePOJO.ProductsTable;
-import com.vivshar.TablePOJO.ProposalsTable;
+import com.vivshar.POJO.JsonParse.Feature;
+import com.vivshar.POJO.JsonParse.Product;
+import com.vivshar.POJO.JsonParse.Proposal;
+import com.vivshar.POJO.Table.FeaturesTable;
+import com.vivshar.POJO.Table.ProductsTable;
+import com.vivshar.POJO.Table.ProposalsTable;
 
 public class CreateProposal {
 

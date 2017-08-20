@@ -7,9 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.vivshar.JsonParsePOJO.Feature;
-import com.vivshar.JsonParsePOJO.Product;
-import com.vivshar.JsonParsePOJO.Proposal;
+import com.vivshar.POJO.JsonParse.Proposal;
 
 /**
  * Root resource (exposed at "myresource" path)

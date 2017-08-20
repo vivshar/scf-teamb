@@ -1,4 +1,4 @@
-package com.vivshar.TablePOJO;
+package com.vivshar.POJO.Table;
 
 public class ProposalsTable {
 
