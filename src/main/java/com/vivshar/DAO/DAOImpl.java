@@ -160,7 +160,6 @@ public class DAOImpl {
 			statement.setInt(1, pt.getProductId());
 			statement.setInt(2, pt.getProposalId());
 			statement.setInt(3, pt.getQuantity());		
-			statement.executeQuery();
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
@@ -212,7 +211,6 @@ public Integer enter_product_features(FeaturesTable ft) {
 			statement.setInt(1, ft.getProductsId());
 			statement.setString(2, ft.getSpecification());
 			statement.setString(3, Character.toString(ft.getPriorityOrder()));		
-			statement.executeQuery();
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1));
