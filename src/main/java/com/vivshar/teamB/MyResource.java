@@ -29,10 +29,13 @@ public class MyResource {
     }
     @POST
 	@Path("/proposal")
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_ATOM_XML})
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Proposal createProposalClass(Proposal p) {
-		CreateProposal.create(p);
-		return p;
+	public String createProposalClass(Proposal p) {
+		boolean creationStatus = CreateProposal.create(p);
+		if(creationStatus==true)
+			return "<p>Proposal created !!</p>";
+		else
+		return "<p>Error occured</p>";
 	}
 }
