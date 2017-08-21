@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import com.vivshar.POJO.Table.FeaturesTable;
+import com.vivshar.POJO.Table.ProductsTable;
+import com.vivshar.POJO.Table.ProposalsTable;
+
 public class DAOImpl {
 
 	public Connection create_connection() {
@@ -66,77 +70,77 @@ public class DAOImpl {
 		*/	
 	}
 	
-	public void create_proposal(int buyer_id, String description, String buyer_status, int d_terms_id, int p_terms_id) {
+	public Integer create_proposal(ProposalsTable pt) {
 		
 		System.out.println("create proposal called");
-		
+		Integer i;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/teamb?currentSchema=public", "postgres",
-					"teamb");
+					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
+					"1");
 			
 			String sql = "INSERT into \"Proposals\" (";
 			sql += "buyer_id, description, buyer_status, d_terms_id, p_terms_id";
 			sql += ") VALUES (";
 			sql += "?, ?, ?, ?, ?";
-			sql += ")";
+			sql += ") RETURNING proposal_id";
 			
 			statement = connection.prepareStatement(sql);
-			statement.setInt(1, buyer_id);
-			statement.setString(2, description);
-			statement.setString(3, buyer_status);
-			statement.setInt(4, d_terms_id);
-			statement.setInt(5, p_terms_id);
-			int a = statement.executeUpdate();
-			System.out.println("a=" + a);
-			
-		} catch (SQLException e) {
-			// handle errors for JDBC
+			statement.setInt(1, pt.getBuyerId());
+			statement.setString(2, pt.getDescription());
+			statement.setString(3, Character.toString(pt.getBuyerStatus()));
+			statement.setInt(4, pt.getdTermsId());
+			statement.setInt(5, pt.getpTermsId());
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			i = new Integer(rs.getInt(1)); 
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// handle errors for Class.forName
-			e.printStackTrace();
+			i = new Integer(-1); 
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
+		}
+		
+		return i;
 		
 	}
 	
-	public void enter_proposal_product(int proposal_id, int product_id, int quantity) {
+	public Integer enter_proposal_product(ProductsTable pt) {
 		
 		PreparedStatement statement = null;
 		Connection connection = null;
+		Integer i;
 		
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/teamb", "postgres",
-					"teamb");
-			
+					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
+					"1");
+			System.out.println("Inserting product");
 			String sql = "INSERT into \"Products\" (";
 			sql += "product_id, proposal_id, quantity";
 			sql += ") VALUES (";
 			sql += "?, ?, ?";
-			sql += ")";
+			sql += ") RETURNING id";
 			
 			statement = connection.prepareStatement(sql);
-			statement.setInt(1, product_id);
-			statement.setInt(2, proposal_id);
-			statement.setInt(3, quantity);		
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			// handle errors for JDBC
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// handle errors for Class.forName
+			statement.setInt(1, pt.getProductId());
+			statement.setInt(2, pt.getProposalId());
+			statement.setInt(3, pt.getQuantity());		
+			statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			i = new Integer(rs.getInt(1)); 
+		} catch (SQLException | ClassNotFoundException e) {
+			i = new Integer(-1); 			
 			e.printStackTrace();
 		} finally {
 			try {
@@ -144,8 +148,49 @@ public class DAOImpl {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
+		}	
 		
+		return i;
+	}
+	
+public Integer enter_product_features(FeaturesTable ft) {
+		
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Integer i;
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
+					"1");
+			
+			String sql = "INSERT into \"Features\" (";
+			sql += "product_id, specification, priority_order";
+			sql += ") VALUES (";
+			sql += "?, ?, ?";
+			sql += ") RETURNING feature_id";
+			
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, ft.getProductsId());
+			statement.setString(2, ft.getSpecification());
+			statement.setString(3, Character.toString(ft.getPriorityOrder()));		
+			statement.executeQuery();
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			i = new Integer(rs.getInt(1)); 
+		} catch (SQLException | ClassNotFoundException e) {
+			i = new Integer(-1); 			
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return i;
 	}
 	
 }

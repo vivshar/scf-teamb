@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.BusinessLogic.CreateProposal;
 import com.vivshar.POJO.JsonParse.Proposal;
 
 /**
@@ -31,7 +32,7 @@ public class MyResource {
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_ATOM_XML})
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Proposal createProposalClass(Proposal p) {
-		
+		CreateProposal.create(p);
 		return p;
 	}
 }

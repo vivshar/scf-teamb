@@ -20,15 +20,29 @@ public class CreateProposal {
 		
 		
 		proposalsTable = ProposalTabObj(proposal);
-		//proposalsTable.setProposalId(daoImpl.create_proposal(proposalsTable));
+		Integer i = daoImpl.create_proposal(proposalsTable);
+		if(i.equals(-1))
+			return false;
+		else
+		proposalsTable.setProposalId(i);
 		for(Product p : proposal.getProducts()) {
 			productsTable = ProductsTabObj(p);
 			productsTable.setProposalId(proposalsTable.getProposalId());
-			//productsTable.setId(daoImpl.enter_proposal_product(productsTable));
+			i = daoImpl.enter_proposal_product(productsTable);
+			System.out.println("Inserting product..."+productsTable.getProductId());
+			if(i.equals(-1))
+				return false;
+			else
+			productsTable.setId(i);
 			for(Feature f : p.getFeatures()) {
 				featuresTable = FeaturesTabObj(f);
 				featuresTable.setProductsId(p.getId());
-				//featuresTable.setFeaturesId(daoImpl.);
+				i = daoImpl.enter_product_features(featuresTable);
+				System.out.println("Inserting feature..."+featuresTable.getSpecification());
+				if(i.equals(-1))
+					return false;
+				else
+				featuresTable.setFeaturesId(i);
 			}
 		}
 		
@@ -41,9 +55,9 @@ public class CreateProposal {
 	
 	private static ProposalsTable ProposalTabObj(Proposal p) {
 		ProposalsTable pt =new ProposalsTable();
-		//pt.setBuyerId(buyerId);
+		pt.setBuyerId(1);
 		pt.setDescription(p.getDescription());
-		//pt.setBuyerStatus();
+		pt.setBuyerStatus('y');
 		pt.setpTermsId(p.getPaymentTermsId());
 		pt.setdTermsId(p.getDeliveryTermsId());
 		return pt;
