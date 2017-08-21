@@ -110,6 +110,7 @@ public class DAOImpl {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
+			System.out.println("value of proposal id is ............................."+i);
 			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
