@@ -29,6 +29,8 @@ public class CreateProposal {
 			productsTable = ProductsTabObj(p);
 			productsTable.setProposalId(proposalsTable.getProposalId());
 			i = daoImpl.enter_proposal_product(productsTable);
+			System.out.println("Proposal inserted with id ");
+			System.out.println("=============================="+i);
 			System.out.println("Inserting product..."+productsTable.getProductId());
 			if(i.equals(-1))
 				return false;
