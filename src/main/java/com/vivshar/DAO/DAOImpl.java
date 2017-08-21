@@ -78,10 +78,22 @@ public class DAOImpl {
 		Connection connection = null;
 		
 		try {
-			Class.forName("org.postgresql.Driver");
+			/*Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
 					"1");
+			*/
+			
+			
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	        Properties props = new Properties();
+	        props.setProperty("user", "lqmwbjsssdqgqd");
+	        props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+	        props.setProperty("ssl", "true");
+	        connection = DriverManager.getConnection(url, props);
+			
+			
 			
 			String sql = "INSERT into \"Proposals\" (";
 			sql += "buyer_id, description, buyer_status, d_terms_id, p_terms_id";
@@ -98,6 +110,7 @@ public class DAOImpl {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
+			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			i = new Integer(-1); 
@@ -120,11 +133,22 @@ public class DAOImpl {
 		Integer i;
 		
 		try {
-			Class.forName("org.postgresql.Driver");
+			/*Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
 					"1");
-			System.out.println("Inserting product");
+			System.out.println("Inserting product");*/
+			
+			
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	        Properties props = new Properties();
+	        props.setProperty("user", "lqmwbjsssdqgqd");
+	        props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+	        props.setProperty("ssl", "true");
+	        connection = DriverManager.getConnection(url, props);
+			
+			
 			String sql = "INSERT into \"Products\" (";
 			sql += "product_id, proposal_id, quantity";
 			sql += ") VALUES (";
@@ -139,6 +163,7 @@ public class DAOImpl {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
+			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			i = new Integer(-1); 			
 			e.printStackTrace();
@@ -160,10 +185,18 @@ public Integer enter_product_features(FeaturesTable ft) {
 		Integer i;
 		
 		try {
-			Class.forName("org.postgresql.Driver");
+			/*Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/cm?currentSchema=public", "postgres",
-					"1");
+					"1");*/
+			
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	        Properties props = new Properties();
+	        props.setProperty("user", "lqmwbjsssdqgqd");
+	        props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+	        props.setProperty("ssl", "true");
+	        connection = DriverManager.getConnection(url, props);
 			
 			String sql = "INSERT into \"Features\" (";
 			sql += "product_id, specification, priority_order";
@@ -178,7 +211,8 @@ public Integer enter_product_features(FeaturesTable ft) {
 			statement.executeQuery();
 			ResultSet rs = statement.executeQuery();
 			rs.next();
-			i = new Integer(rs.getInt(1)); 
+			i = new Integer(rs.getInt(1));
+			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			i = new Integer(-1); 			
 			e.printStackTrace();
