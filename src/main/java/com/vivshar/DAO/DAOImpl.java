@@ -110,7 +110,7 @@ public class DAOImpl {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
-			System.out.println("value of proposal id is ............................."+i);
+			System.out.println("In proposal dao proposal id is ............................."+i);
 			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -164,6 +164,9 @@ public class DAOImpl {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1)); 
+			System.out.println("In product dao product id is ............................."+i);
+			System.out.println("In product dao proposal id is ............................."+pt.getProposalId());
+			
 			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			i = new Integer(-1); 			
@@ -213,6 +216,8 @@ public Integer enter_product_features(FeaturesTable ft) {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			i = new Integer(rs.getInt(1));
+			System.out.println("In features dao feature id is ............................."+i);
+			System.out.println("In features dao product id is ............................."+ft.getProductsId());
 			rs.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			i = new Integer(-1); 			

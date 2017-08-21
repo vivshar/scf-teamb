@@ -21,6 +21,8 @@ public class CreateProposal {
 		
 		proposalsTable = ProposalTabObj(proposal);
 		Integer i = daoImpl.create_proposal(proposalsTable);
+		System.out.println("Proposal inserted with id ");
+		System.out.println("=============================="+i);
 		if(i.equals(-1))
 			return false;
 		else
@@ -29,9 +31,9 @@ public class CreateProposal {
 			productsTable = ProductsTabObj(p);
 			productsTable.setProposalId(proposalsTable.getProposalId());
 			i = daoImpl.enter_proposal_product(productsTable);
-			System.out.println("Proposal inserted with id ");
+			System.out.println("Product inserted with id ");
 			System.out.println("=============================="+i);
-			System.out.println("Inserting product..."+productsTable.getProductId());
+			
 			if(i.equals(-1))
 				return false;
 			else
@@ -40,7 +42,8 @@ public class CreateProposal {
 				featuresTable = FeaturesTabObj(f);
 				featuresTable.setProductsId(p.getId());
 				i = daoImpl.enter_product_features(featuresTable);
-				System.out.println("Inserting feature..."+featuresTable.getSpecification());
+				System.out.println("feature inserted with id ");
+				System.out.println("=============================="+i);
 				if(i.equals(-1))
 					return false;
 				else
