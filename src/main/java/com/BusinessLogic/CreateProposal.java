@@ -23,9 +23,9 @@ public class CreateProposal {
 		Integer i = daoImpl.create_proposal(proposalsTable);
 		System.out.println("Proposal inserted with id ");
 		System.out.println("=============================="+i);
-		if(i.equals(-1))
+/*		if(i.equals(-1))
 			return false;
-		else
+		else*/
 		proposalsTable.setProposalId(i);
 		for(Product p : proposal.getProducts()) {
 			productsTable = ProductsTabObj(p);
@@ -34,9 +34,9 @@ public class CreateProposal {
 			System.out.println("Product inserted with id ");
 			System.out.println("=============================="+i);
 			
-			if(i.equals(-1))
+/*			if(i.equals(-1))
 				return false;
-			else
+			else*/
 			productsTable.setId(i);
 			for(Feature f : p.getFeatures()) {
 				featuresTable = FeaturesTabObj(f);
@@ -44,9 +44,9 @@ public class CreateProposal {
 				i = daoImpl.enter_product_features(featuresTable);
 				System.out.println("feature inserted with id ");
 				System.out.println("=============================="+i);
-				if(i.equals(-1))
+/*				if(i.equals(-1))
 					return false;
-				else
+				else*/
 				featuresTable.setFeaturesId(i);
 			}
 		}
