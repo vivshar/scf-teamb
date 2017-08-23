@@ -1,4 +1,4 @@
-package com.vivshar.teamB;
+package com.vivshar.services;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,13 +12,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 
 import com.BusinessLogic.CreateProposal;
-import com.vivshar.POJO.JsonParse.Proposal;
+import com.vivshar.POJO.JsonParse.createProposal.Proposal;
 
 /**
  * Root resource (exposed at "myresource" path)
  */
 @Path("services")
-public class MyResource {
+public class MyResourceServices {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent

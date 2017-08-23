@@ -6,15 +6,16 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
-import com.vivshar.teamB.MyResource;
+import com.vivshar.services.MyResourceServices;
+
+import static org.junit.Assert.assertEquals;
 
 public class MyResourceTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(MyResource.class);
+        return new ResourceConfig(MyResourceServices.class);
     }
 
     /**

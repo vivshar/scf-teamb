@@ -1,4 +1,4 @@
-package com.vivshar.POJO.JsonParse;
+package com.vivshar.POJO.JsonParse.viewProposal;
 
 import java.util.ArrayList;
 import java.util.List;

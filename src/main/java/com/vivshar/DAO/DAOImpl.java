@@ -236,5 +236,12 @@ public List<ProposalsTable> view_proposals(int id) {
 	// TODO Auto-generated method stub
 	return null;
 }
+
+public boolean InactivateProposal(Integer proposalId) {
+	//Yashwanth please also check if seller bid id is null in order to prevent inactivation after awarding contract
+	
+	// TODO Auto-generated method stub
+	return false;
+}
 	
 }

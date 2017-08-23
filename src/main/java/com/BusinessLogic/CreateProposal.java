@@ -1,9 +1,9 @@
 package com.BusinessLogic;
 
 import com.vivshar.DAO.DAOImpl;
-import com.vivshar.POJO.JsonParse.Feature;
-import com.vivshar.POJO.JsonParse.Product;
-import com.vivshar.POJO.JsonParse.Proposal;
+import com.vivshar.POJO.JsonParse.createProposal.Feature;
+import com.vivshar.POJO.JsonParse.createProposal.Product;
+import com.vivshar.POJO.JsonParse.createProposal.Proposal;
 import com.vivshar.POJO.Table.FeaturesTable;
 import com.vivshar.POJO.Table.ProductsTable;
 import com.vivshar.POJO.Table.ProposalsTable;

@@ -1,11 +1,11 @@
 package com.BusinessLogic;
 
 import com.vivshar.DAO.DAOImpl;
-import com.vivshar.POJO.JsonParse.ListOfProposals;
+import com.vivshar.POJO.JsonParse.viewProposal.ListOfProposals;
 
 public class ViewProposalBL {
 	
-	public static ListOfProposals view(int id) {
+	public static ListOfProposals view(Integer id) {
 		
 		
 		
@@ -15,6 +15,12 @@ public class ViewProposalBL {
 		lp.setProposals(daoImpl.view_proposals(id));
 		
 		return lp;
+	}
+	
+	public static boolean InactivateProposal(Integer proposalId) {
+		DAOImpl daoImpl = new DAOImpl();
+		
+		return daoImpl.InactivateProposal(proposalId);
 	}
 
 }

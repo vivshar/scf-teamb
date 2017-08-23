@@ -1,5 +1,5 @@
 
-package com.vivshar.POJO.JsonParse;
+package com.vivshar.POJO.JsonParse.createProposal;
 
 import java.util.List;
 
