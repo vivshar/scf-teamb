@@ -39,6 +39,5 @@ public class MyResource {
 		return "<p>Error occured</p>";
 	}
     
-    @po
     
 }
