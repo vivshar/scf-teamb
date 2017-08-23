@@ -5,14 +5,24 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.vivshar.POJO.JsonParse.ListOfProposals;
+
 @Path("view")
 public class ViewProposal {
 
-	@Path("/proposal/searchByStatus")
-	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public String searchByStatus() {
-		return  "<h1>Returning search by status</h1>";
+	@Path("/proposals")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ListOfProposals proposalList() {
+		
+		
+		/*HttpSession ses = httpRequest.getSession(false);
+    	User usr =  (User)ses.getAttribute("user");*/
+		int userId = 1;
+		
+		
+		
+		return null;
+		
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 
 import com.vivshar.POJO.Table.FeaturesTable;
@@ -230,5 +231,10 @@ public Integer enter_product_features(FeaturesTable ft) {
 		
 		return i;
 	}
+
+public List<ProposalsTable> view_proposals(int id) {
+	// TODO Auto-generated method stub
+	return null;
+}
 	
 }
