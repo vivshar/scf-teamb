@@ -13,7 +13,7 @@ import com.vivshar.POJO.JsonParse.Proposal;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("create")
+@Path("services")
 public class MyResource {
 
     /**
@@ -38,4 +38,7 @@ public class MyResource {
 		else
 		return "<p>Error occured</p>";
 	}
+    
+    @po
+    
 }
