@@ -35,7 +35,7 @@ public class MyResource {
 	@Path("/proposal")
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String createProposalClass(Proposal p,@Context HttpServletRequest httpRequest) {
+	public String createProposalClass(Proposal p/*,@Context HttpServletRequest httpRequest*/) {
     	/*HttpSession ses = httpRequest.getSession(false);
     	User usr =  (User)ses.getAttribute("user");*/
     	
