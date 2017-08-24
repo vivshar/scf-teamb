@@ -4,7 +4,7 @@ public class FeaturesTable {
 
 	Integer featuresId;
 	Integer productsId;
-	String specification;
+	Integer proposalId;
 	char priorityOrder;
 	String attachment;
 	public Integer getFeaturesId() {
@@ -19,11 +19,12 @@ public class FeaturesTable {
 	public void setProductsId(Integer productsId) {
 		this.productsId = productsId;
 	}
-	public String getSpecification() {
-		return specification;
+
+	public Integer getProposalId() {
+		return proposalId;
 	}
-	public void setSpecification(String specification) {
-		this.specification = specification;
+	public void setProposalId(Integer proposalId) {
+		this.proposalId = proposalId;
 	}
 	public char getPriorityOrder() {
 		return priorityOrder;

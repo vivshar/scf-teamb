@@ -4,18 +4,19 @@ package com.vivshar.POJO.JsonParse.createProposal;
 
 public class Feature {
 
-    private String specification;
+    private Integer fid;
     private String priorityOrder;
 
-    public String getSpecification() {
-        return specification;
-    }
 
-    public void setSpecification(String specification) {
-        this.specification = specification;
-    }
+    public Integer getFid() {
+		return fid;
+	}
 
-    public String getPriorityOrder() {
+	public void setFid(Integer fid) {
+		this.fid = fid;
+	}
+
+	public String getPriorityOrder() {
         return priorityOrder;
     }
 

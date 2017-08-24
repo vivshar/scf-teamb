@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -203,21 +204,21 @@ public Integer enter_product_features(FeaturesTable ft) {
 	        connection = DriverManager.getConnection(url, props);
 			
 			String sql = "INSERT into \"Features\" (";
-			sql += "product_id, specification, priority_order";
+			sql += "priority_order, f_id, p_id, proposal_id";
 			sql += ") VALUES (";
-			sql += "?, ?, ?";
-			sql += ") RETURNING feature_id";
+			sql += "?, ?, ?, ?";
+			sql += ")";
 			
 			statement = connection.prepareStatement(sql);
-			statement.setInt(1, ft.getProductsId());
-			statement.setString(2, ft.getSpecification());
-			statement.setString(3, Character.toString(ft.getPriorityOrder()));		
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			i = new Integer(rs.getInt(1));
+			statement.setInt(3, ft.getProductsId());
+			statement.setInt(2, ft.getFeaturesId());
+			statement.setString(1, Character.toString(ft.getPriorityOrder()));
+			statement.setInt(4, ft.getProposalId());
+			i = new Integer(statement.executeUpdate());
+			
 			System.out.println("In features dao feature id is ............................."+i);
 			System.out.println("In features dao product id is ............................."+ft.getProductsId());
-			rs.close();
+			
 		} catch (SQLException | ClassNotFoundException e) {
 			i = new Integer(-1); 			
 			e.printStackTrace();
@@ -232,10 +233,67 @@ public Integer enter_product_features(FeaturesTable ft) {
 		return i;
 	}
 
-public List<ProposalsTable> view_proposals(int id) {
-	// TODO Auto-generated method stub
-	return null;
+
+
+
+
+
+
+
+
+
+
+public List<ProposalsTable> view_proposals(int buyer_id) {
+	
+	
+	Statement statement = null;
+	List<ProposalsTable> pt_list = new ArrayList<ProposalsTable>();
+	
+	Connection connection = create_connection();
+	System.out.println("entered view proposals");
+	
+	try {
+		String sql = "SELECT ";
+		sql += "proposal_id, bid_seller_id, description, buyer_status, contract_status, d_terms_id, p_terms_id";
+		sql += " from \"Proposals\"";
+		sql += " WHERE buyer_id=";
+		sql += buyer_id;
+		
+		statement = connection.createStatement();	
+		ResultSet rs = statement.executeQuery(sql);
+		
+		while(rs.next()) {
+			ProposalsTable pt = new ProposalsTable();
+			pt.setProposalId(rs.getInt(1));
+			pt.setBidSellerId(rs.getInt(2));
+			pt.setDescription(rs.getString(3));
+			pt.setBuyerStatus((rs.getString(4)).charAt(0));
+			pt.setContractStatus((rs.getString(5)).charAt(0));
+			pt.setdTermsId(rs.getInt(6));
+			pt.setpTermsId(rs.getInt(7));
+			pt_list.add(pt);
+		}
+		rs.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	return pt_list;
+	
+	
+	
 }
+
+
+
+
 
 public boolean InactivateProposal(Integer proposalId) {
 	//Yashwanth please also check if seller bid id is null in order to prevent inactivation after awarding contract
@@ -243,5 +301,32 @@ public boolean InactivateProposal(Integer proposalId) {
 	// TODO Auto-generated method stub
 	return false;
 }
+
+public ProposalsTable get_proposal(Integer proposal_id) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public List<ProductsTable> get_products(Integer proposalid) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public String get_product_name(Integer product_id) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public List<FeaturesTable> get_features(ProductsTable prodt) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public String get_feature_name(Integer feature_id, Integer product_id) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
 	
 }

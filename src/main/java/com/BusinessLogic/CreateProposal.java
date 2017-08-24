@@ -41,9 +41,11 @@ public class CreateProposal {
 			for(Feature f : p.getFeatures()) {
 				featuresTable = FeaturesTabObj(f);
 				featuresTable.setProductsId(p.getId());
+				featuresTable.setProposalId(proposalsTable.getProposalId());
 				i = daoImpl.enter_product_features(featuresTable);
-				System.out.println("feature inserted with id ");
-				System.out.println("=============================="+i);
+				if(i == 1)
+				{System.out.println("feature inserted with id ");
+				System.out.println("=============================="+i);}
 /*				if(i.equals(-1))
 					return false;
 				else*/
@@ -75,7 +77,7 @@ public class CreateProposal {
 	}
 	private static FeaturesTable FeaturesTabObj(Feature f) {
 		FeaturesTable ft =new FeaturesTable();
-		ft.setSpecification(f.getSpecification());
+		ft.setFeaturesId(f.getFid());
 		ft.setPriorityOrder(f.getPriorityOrder().charAt(0));
 		return ft;
 	}
