@@ -36,10 +36,10 @@ public class ViewProposalServices {
 		return "<p>Unable to Inactivate proposal!!<p>";
 	}
 	
-/*	@Path("/proposal/selected/{id}")
+	@Path("/proposal/selected/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public SelectedProposal ViewSelectedProposal(@PathParam("id") int proposalId) {
-			
-	}*/
+			return ViewProposalBL.GetProposalWithId(proposalId);
+	}
 }

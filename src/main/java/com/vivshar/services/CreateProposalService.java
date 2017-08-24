@@ -11,14 +11,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 
-import com.BusinessLogic.CreateProposal;
+import com.BusinessLogic.CreateProposalBL;
 import com.vivshar.POJO.JsonParse.createProposal.Proposal;
 
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("services")
-public class MyResourceServices {
+@Path("create")
+public class CreateProposalService {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -40,7 +40,7 @@ public class MyResourceServices {
     	User usr =  (User)ses.getAttribute("user");*/
     	
     	
-		boolean creationStatus = CreateProposal.create(p);
+		boolean creationStatus = CreateProposalBL.create(p);
 		if(creationStatus==true)
 			return "<p>Proposal created !!</p>";
 		

@@ -7,7 +7,7 @@ import org.glassfish.jersey.test.JerseyTest;
 
 import org.junit.Test;
 
-import com.vivshar.services.MyResourceServices;
+import com.vivshar.services.CreateProposalService;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +15,7 @@ public class MyResourceTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(MyResourceServices.class);
+        return new ResourceConfig(CreateProposalService.class);
     }
 
     /**

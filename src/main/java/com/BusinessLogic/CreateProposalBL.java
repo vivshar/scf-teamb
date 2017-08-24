@@ -8,7 +8,7 @@ import com.vivshar.POJO.Table.FeaturesTable;
 import com.vivshar.POJO.Table.ProductsTable;
 import com.vivshar.POJO.Table.ProposalsTable;
 
-public class CreateProposal {
+public class CreateProposalBL {
 
 	public static boolean create(Proposal proposal) {
 		
