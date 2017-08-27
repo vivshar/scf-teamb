@@ -28,12 +28,14 @@ public class UpdateProposalService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
 	public String UpdateProposal(SelectedProposal selectedProposal) {
-		if(selectedProposal.getBuyerStatus()!="Y"||selectedProposal.getBuyerStatus()!="y")
-			return "<p>NOT ALLOWED</p>";
+		if((selectedProposal.getBuyerStatus().equals("Y"))||(selectedProposal.getBuyerStatus().equals("y")))
+				if( UpdateProposalBL.UpdateProposal(selectedProposal))
+					return "<p>Update successful</p>";
+				else return "Some database error occurred";
+				
+				
 		else 
-			if( UpdateProposalBL.UpdateProposal(selectedProposal))
-				return "<p>Update successful</p>";
-			else return "Some database error occurred";
+			return "<p>NOT ALLOWED</p>";
 	}
 	
 	

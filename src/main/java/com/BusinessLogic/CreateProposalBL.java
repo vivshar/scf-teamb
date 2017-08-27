@@ -42,6 +42,7 @@ public class CreateProposalBL {
 				featuresTable = FeaturesTabObj(f);
 				featuresTable.setProductsId(p.getId());
 				featuresTable.setProposalId(proposalsTable.getProposalId());
+				featuresTable.setFeaturesId(f.getFid());
 				i = daoImpl.enter_product_features(featuresTable);
 				if(i == 1)
 				{System.out.println("feature inserted with id ");
