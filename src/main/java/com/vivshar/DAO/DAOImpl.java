@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.vivshar.POJO.JsonParse.PublishProposal.IdentifiedSellers;
 import com.vivshar.POJO.Table.FeaturesDetailsTable;
 import com.vivshar.POJO.Table.FeaturesTable;
+import com.vivshar.POJO.Table.PaymentTermsTable;
 import com.vivshar.POJO.Table.ProductsTable;
 import com.vivshar.POJO.Table.ProposalSellersBid;
 import com.vivshar.POJO.Table.ProposalsTable;
@@ -618,7 +619,7 @@ public String get_product_name(Integer product_id) {
 		sql += " from \"Products_list\"";
 		sql += " WHERE \"Product_id\"=";
 		sql += product_id;
-
+		System.out.println(sql);
 		statement = connection.createStatement();	
 		ResultSet rs = statement.executeQuery(sql);
 		rs.next();		
@@ -865,10 +866,11 @@ public boolean UpdateFeatureTable(Integer fid, Integer id, Integer proposalid, S
 }
 
 public List<String> ListSellers(int proposalId){
+	
 	List<String> listOfSellers = new ArrayList<String>();
 	Statement statement = null;
 	Connection connection = create_connection();
-	
+	System.out.println("Entered into dao");
 	try {
 		String sql = "SELECT \"product_id\"";
 		sql += " FROM \"Products\"";
@@ -879,6 +881,7 @@ public List<String> ListSellers(int proposalId){
 		ResultSet rs = statement.executeQuery(sql);
 		
 		while(rs.next()) {
+			
 			sql = "SELECT \"Username\"";
 			sql += " FROM \"User_products\"";
 			sql += " WHERE \"Product_id\"=";
@@ -887,6 +890,8 @@ public List<String> ListSellers(int proposalId){
 			ResultSet rs1 = statement.executeQuery(sql);
 			while(rs1.next()) {
 			listOfSellers.add(rs1.getString(1));
+			System.out.println(rs1.getString(1));
+			System.out.println("sql :"+sql);
 			}
 			rs1.close();
 		}
@@ -939,14 +944,11 @@ public void PublishProposal(IdentifiedSellers identifiedSellers,Integer proposal
 			pstatement.setString(3, "P");
 			pstatement.setString(4, "n");
 			pstatement.executeQuery();
-			
-			
-			
-			
+					
 		}
 		
 		
-		
+		//TODO query for changing buyer status in proposals table
 		
 		
 	}  catch (SQLException e) {
@@ -962,5 +964,157 @@ public void PublishProposal(IdentifiedSellers identifiedSellers,Integer proposal
 	
 	
 }
+
+
+
+
+
+
+
+public boolean award(int proposal_id, int seller_id) {
+	
+	Statement statement = null;
+	Connection connection = create_connection();
+	
+	try {
+		String sql = "UPDATE \"Proposals\"";
+		sql += " SET \"buyer_status\"=";
+		sql += "'c'";
+		sql += " WHERE \"proposal_id\"=";
+		sql += proposal_id;
+		System.out.println(sql);
+		statement = connection.createStatement();	
+		int a = statement.executeUpdate(sql);
+		if (a != 1) {
+			return false;
+		}
+		
+		sql = "SELECT \"seller_id\", \"buyer_bid_status\" ";
+		sql += " FROM \"Proposal_sellers_bid\"";
+		sql += " WHERE \"proposal_id\"=";
+		sql += proposal_id;
+		System.out.println(sql);
+
+		statement = connection.createStatement();	
+		ResultSet rs = statement.executeQuery(sql);
+		
+		while(rs.next()) {
+			int s_id = rs.getInt(1);
+			if (s_id != seller_id) {
+				sql = "UPDATE \"Proposal_sellers_bid\"";
+				sql += " SET \"buyer_bid_status\"=";
+				sql += "'r'";
+				sql += " WHERE \"proposal_id\"=";
+				sql += proposal_id;
+				sql += " AND \"seller_id\"=";
+				sql += s_id;
+			} else {
+				sql = "UPDATE \"Proposal_sellers_bid\"";
+				sql += " SET \"buyer_bid_status\"=";
+				sql += "'a'";
+				sql += " WHERE \"proposal_id\"=";
+				sql += proposal_id;
+				sql += " AND \"seller_id\"=";
+				sql += s_id;
+			}
+			System.out.println(sql);
+			statement = connection.createStatement();	
+			int b = statement.executeUpdate(sql);
+			if (b != 1) {
+				return false;
+			}	
+		}	
+	}  catch (SQLException e) {
+		e.printStackTrace();
+		return false;
+	} finally {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	return true;
+	
+}
+
+
+
+public boolean reject(int proposal_id, int seller_id) {
+	
+	Statement statement = null;
+	Connection connection = create_connection();
+	
+	try {
+		String sql = "UPDATE \"Proposal_sellers_bid\"";
+		sql += " SET \"buyer_bid_status\"=";
+		sql += "'r'";
+		sql += " WHERE \"proposal_id\"=";
+		sql += proposal_id;
+		sql += " AND \"seller_id\"=";
+		sql += seller_id;
+		
+		System.out.println(sql);
+		statement = connection.createStatement();	
+		int a = statement.executeUpdate(sql);
+		if (a != 1) {
+			return false;
+		}
+		
+	}  catch (SQLException e) {
+		e.printStackTrace();
+		return false;
+	} finally {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	return true;
+}
+
+
+
+
+
+
+public List<PaymentTermsTable> get_payment_terms() {
+	
+		Statement statement = null;
+		Connection connection = create_connection();
+		List<PaymentTermsTable> ptt_list = new ArrayList<PaymentTermsTable>();
+		
+		try {
+			String sql = "SELECT";
+			sql += " *";
+			sql += " from \"Payment_terms\"";
+			System.out.println(sql);
+			statement = connection.createStatement();	
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while(rs.next()) {
+				PaymentTermsTable ptt = new PaymentTermsTable();
+				ptt.setId(rs.getInt(1));
+				ptt.setName(rs.getString(2));
+				ptt.setDescription(rs.getString(3));
+				ptt_list.add(ptt);
+			}
+			rs.close();
+			return ptt_list;		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return ptt_list;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	}
 	
 }

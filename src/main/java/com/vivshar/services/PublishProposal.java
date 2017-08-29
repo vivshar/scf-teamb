@@ -16,8 +16,9 @@ public class PublishProposal {
 	@Path("/proposal/{id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public IdentifiedSellers GetAllSellers(@PathParam("{id}") Integer proposalId ) {
+	public IdentifiedSellers GetAllSellers(@PathParam("id") int proposalId ) {
 		PublishProposalBL bl = new PublishProposalBL();
+		System.out.println(proposalId);
 		return bl.GetListOfSellers(proposalId);
 	}
 	
