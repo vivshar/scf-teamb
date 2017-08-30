@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>View Existing Proposals</title>
+    <title>SUPPLIER'S RESPONSE</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -303,7 +303,7 @@
                 <br><br>
                     <p style="font-size: 300%; 
                     color: white">
-                    <b>EXISTING PROPOSALS</b></p>
+                    <b>SUPPLIERS NOTIFIED</b></p>
 		    <br>
 		    <br>
 		    
@@ -315,7 +315,15 @@
                 <div class="col-sm-offset-1 col-sm-6" id="alignPayment">
 
                     <div class="media" ><p style="font-size: 150%;">
-                    <b>Select one of the proposals</b></p>
+                    <br>
+Proposal Name
+<br>
+Description
+<br>
+<a href="">View full proposal</a>
+<br>
+<br>
+</p>
 
                                 <!-- <div class="media-left media-top" >
                                   
@@ -337,28 +345,35 @@
                                     <col width="80">
                                         <tr>
                                             
-                                            <th>S. No</th>
-                                            <th >Name</th> 
-                                            <th>Status</th>
-                                            <th>Select</th>
+                                            <th>No.</th>
+                                            <th >Seller</th> 
+                                            <th>Score</th>
+                                            <th>Avail cost</th>
+                                            <th>Avail Cust cost</th>
+					    <th>Supplier's Response</th>
                                         </tr>
-                                        <tr ng-repeat="x in obj.proposals">
+                                        <tr ng-repeat="x in obj.responses">
 
-                                             <td>{{$index+1}}</td>
-                                            <td>{{x["description"]}}</td> 
-                                            <td>{{x["buyerStatus"]}}</td>
-                                            <td><button type="button" class="btns" id="btn1" ng-click="func1(x['proposalId'],x['buyerStatus'])">Select to view</button></td>
+                                            <td >{{$index+1}}</td>
+                                            <td>{{x["sellerId"]}}</td> 
+                                            <td>{{x["score"]}}</td>
+                                            <td>{{x["costAvail"]}}</td>
+                                            <td>{{x["costAvailCust"]}}</td>
+
+                                            <td><button type="button" class="btns" id="btn1" ng-click="func1(x['sellerId'])">View</button></td>
                                         </tr>
                                         
                                     </table>
                                     
-
+                                    <button type="button" class="btns" id="btn2" ng-click="func2()">Inactivate Proposal</button>
                                  </div>
 
                             </div>
 
                         </div>
                 <div class="col-sm-6">
+<br>
+<br>
 
 
             </div>
@@ -370,47 +385,53 @@
             <!-- /#wrapper -->
 
             <!-- jQuery -->
-          <!--   <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/jquery/jquery.min.js"></script>
 
             <!-- Bootstrap Core JavaScript -->
-         <!--    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script> -->
+            <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
             <!-- Metis Menu Plugin JavaScript -->
-         <!--    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
- -->
-            Morris Charts JavaScript
-          <!--   <script src="../vendor/raphael/raphael.min.js"></script>
+            <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+            <!-- Morris Charts JavaScript -->
+            <script src="../vendor/raphael/raphael.min.js"></script>
             <script src="../vendor/morrisjs/morris.min.js"></script>
-            <script src="../data/morris-data.js"></script> -->
+            <script src="../data/morris-data.js"></script>
 
             <!-- Custom Theme JavaScript -->
-          <!--   <script src="../dist/js/sb-admin-2.js"></script> -->
- -->
-			<script>
-			 var app = angular.module('myApp', []);
+            <script src="../dist/js/sb-admin-2.js"></script>
+            <script>
+             var app = angular.module('myApp', []);
              
-			app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
-			
-                $http.get("http://localhost:8081/teamB/view/proposals").then(function(response){
-            		$scope.obj = response.data;
+            app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
+
+                var pid = location.search.split('?')[1].split('=')[1];
+
+                //console.log(str);
+            
+                $http.get("http://192.168.4.142:8081/teamB/view/all/responses/"+pid).then(function(response){
+                    $scope.obj = response.data;
                 });
 
-                $scope.func1 =  function (id,stts) {
-                    if(stts=='y') {
-                             //   location.href = "http://localhost:8081/teamB/publish/proposal/"+id;
-                        window.location="B.html?id="+id;
-                        }else if(stts=='p'){
-                            window.location = "list.html?id="+id;
-                        }else if(stts=='c'){
-                            window.location = "//TODO create page for awarded response";
-                        }else if(stts=='i'){
-                            window.alert("Invalid operation");
-                        }
-                }                        
+                $scope.func1 =  function (sid) {
+                     //window.alert("ksji");
+                     window.location = "viewSelectedresponse.html?pid="+pid+"&sid="+sid;
+                }    
+                $scope.func2 =  function () {
+
+
+                     window.alert("Proposal Inactivated!!!");
+                     $http.get("http://192.168.4.142:8081/teamB/view/proposal/inactivate/"+pid).then(function(response){
+                    $scope.obj = response.data;
+                });
+                     window.location = "ListResponses.html?pid="+pid;
+                }                    
                    
-			}]);
+            }]);
 
             </script>
+
+			
     </body>
 
 </html>

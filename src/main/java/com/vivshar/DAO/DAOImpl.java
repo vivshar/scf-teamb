@@ -947,8 +947,13 @@ public void PublishProposal(IdentifiedSellers identifiedSellers,Integer proposal
 					
 		}
 		
-		
-		//TODO query for changing buyer status in proposals table
+		String sql = "UPDATE \"Proposals\"";
+		sql += " SET \"buyer_status\"=";
+		sql += "'p'";
+		sql += " WHERE \"proposal_id\"=";
+		sql += proposalId;
+		statement = connection.createStatement();	
+		int i = statement.executeUpdate(sql);
 		
 		
 	}  catch (SQLException e) {

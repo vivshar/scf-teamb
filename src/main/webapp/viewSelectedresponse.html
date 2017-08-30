@@ -415,7 +415,7 @@ Description
                 console.log(sid);
                 //console.log(str);
             
-                $http.get("http://localhost:8081/teamB/view/response/"+pid+"/"+sid).then(function(response){
+                $http.get("http://192.168.4.142:8081/teamB/view/response/"+pid+"/"+sid).then(function(response){
                     $scope.obj = response.data;
                    /* $scope.obj["response"].forEach(function(s){
 

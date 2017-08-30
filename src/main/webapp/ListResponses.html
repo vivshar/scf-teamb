@@ -10,8 +10,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Supplier's Response</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <title>SUPPLIER'S RESPONSE</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -303,10 +303,10 @@
                 <br><br>
                     <p style="font-size: 300%; 
                     color: white">
-                    <b>RESPONSE</b></p>
-            <br>
-            <br>
-            
+                    <b>SUPPLIERS NOTIFIED</b></p>
+		    <br>
+		    <br>
+		    
                 </div>
             </div>
             <br><br>
@@ -315,7 +315,24 @@
                 <div class="col-sm-offset-1 col-sm-6" id="alignPayment">
 
                     <div class="media" ><p style="font-size: 150%;">
-                   
+                    <br>
+Proposal Name
+<br>
+Description
+<br>
+<a href="">View full proposal</a>
+<br>
+<br>
+</p>
+
+                                <!-- <div class="media-left media-top" >
+                                  
+                                    <div class="media-object" style="background-color:white;border-radius:20px; width:100px;height: 100px;">
+                                       
+                                    </div>
+                                   
+                                </div> -->
+                                
                                 <div class="media-body" >
                                     
 
@@ -328,26 +345,35 @@
                                     <col width="80">
                                         <tr>
                                             
-                                            <th>Feature Name</th>
-                                            <th >Response Status</th> 
-                                            
+                                            <th>No.</th>
+                                            <th >Seller</th> 
+                                            <th>Score</th>
+                                            <th>Avail cost</th>
+                                            <th>Avail Cust cost</th>
+					    <th>Supplier's Response</th>
                                         </tr>
-                                        <tr ng-repeat="x in obj.response">
+                                        <tr ng-repeat="x in obj.responses">
 
-                                            <td >{{x["feature_name"]}}</td>
-                                            <td>{{x["response_status"]}}</td> 
-                                           
+                                            <td >{{$index+1}}</td>
+                                            <td>{{x["sellerId"]}}</td> 
+                                            <td>{{x["score"]}}</td>
+                                            <td>{{x["costAvail"]}}</td>
+                                            <td>{{x["costAvailCust"]}}</td>
+
+                                            <td><button type="button" class="btns" id="btn1" ng-click="func1(x['sellerId'])">View</button></td>
                                         </tr>
                                         
                                     </table>
                                     
-
+                                    <button type="button" class="btns" id="btn2" ng-click="func2()">Inactivate Proposal</button>
                                  </div>
 
                             </div>
 
                         </div>
                 <div class="col-sm-6">
+<br>
+<br>
 
 
             </div>
@@ -374,22 +400,38 @@
 
             <!-- Custom Theme JavaScript -->
             <script src="../dist/js/sb-admin-2.js"></script>
-
             <script>
              var app = angular.module('myApp', []);
-            app.controller('myCtrl', function($scope, $http){
-                var pid = location.search.split('?')[1].split('=')[1].split('&')[0];
-                console.log(pid);
-                var sid = location.search.split('&')[1].split('=')[1];
-                console.log(sid);
-                $http.get("http://localhost:8081/teamB/view/response/"+pid+"/"+sid).then(function(response){
-                    $scope.obj = response.data;        
-                });
-    
-                
              
-            });
+            app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
+
+                var pid = location.search.split('?')[1].split('=')[1];
+
+                //console.log(str);
+            
+                $http.get("http://192.168.4.142:8081/teamB/view/all/responses/"+pid).then(function(response){
+                    $scope.obj = response.data;
+                });
+
+                $scope.func1 =  function (sid) {
+                     //window.alert("ksji");
+                     window.location = "viewSelectedresponse.html?pid="+pid+"&sid="+sid;
+                }    
+                $scope.func2 =  function () {
+
+
+                     window.alert("Proposal Inactivated!!!");
+                     $http.get("http://192.168.4.142:8081/teamB/view/proposal/inactivate/"+pid).then(function(response){
+                    $scope.obj = response.data;
+                });
+                     window.location = "ListResponses.html?pid="+pid;
+                }                    
+                   
+            }]);
+
             </script>
+
+			
     </body>
 
 </html>
